@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmptyView renders 1`] = `
+<div
+  className="box empty-stream"
+>
+  <span
+    className="icon icon-exclamation"
+  />
+  <p>
+    Empty View
+  </p>
+</div>
+`;
+
+exports[`EmptyView renders w/ multiple children 1`] = `
+<div
+  className="box empty-stream"
+>
+  <span
+    className="icon icon-exclamation"
+  />
+  <p>
+    Empty View
+  </p>
+  <p>
+    <span>
+      Another Child
+    </span>
+  </p>
+</div>
+`;
+
+exports[`EmptyView renders with different icon 1`] = `
+<div
+  className="box empty-stream"
+>
+  <span
+    className="icon icon-test"
+  />
+  <p>
+    Empty View w/ icon
+  </p>
+  <p>
+    <span>
+      Another Child
+    </span>
+  </p>
+</div>
+`;

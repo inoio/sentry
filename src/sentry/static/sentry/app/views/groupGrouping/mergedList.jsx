@@ -4,6 +4,8 @@ import {t} from '../../locale';
 import {Event} from '../../proptypes';
 
 import Pagination from '../../components/pagination';
+import EmptyView from '../../components/emptyView';
+
 import MergedItem from './mergedItem';
 import MergedToolbar from './mergedToolbar';
 
@@ -14,22 +16,14 @@ const MergedList = React.createClass({
     pageLinks: PropTypes.string
   },
 
-  renderEmpty() {
-    return (
-      <div className="box empty-stream">
-        <span className="icon icon-exclamation" />
-        <p>{t("There don't seem to be any hashes for this issue.")}</p>
-      </div>
-    );
-  },
-
   render() {
     let {items, pageLinks, onUnmerge, ...otherProps} = this.props;
     let hasResults = items.length > 0;
+    let cx = 'grouping-list-container grouping-merged-list-container';
 
     if (hasResults) {
       return (
-        <div className="grouping-list-container grouping-merged-list-container">
+        <div className={cx}>
           <h2>{t('Merged with this Issue')}</h2>
           <MergedToolbar onUnmerge={onUnmerge} />
 
@@ -49,7 +43,13 @@ const MergedList = React.createClass({
       );
     }
 
-    return this.renderEmpty();
+    return (
+      <div className={cx}>
+        <EmptyView>
+          {`${t("There don't seem to be any hashes for this issue")}.`}
+        </EmptyView>
+      </div>
+    );
   }
 });
 

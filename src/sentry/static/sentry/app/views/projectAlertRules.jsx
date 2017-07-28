@@ -1,12 +1,14 @@
 import React from 'react';
 
+import {t} from '../locale';
 import ApiMixin from '../mixins/apiMixin';
-import Duration from '../components/duration';
 import IndicatorStore from '../stores/indicatorStore';
+
+import Duration from '../components/duration';
 import ListLink from '../components/listLink';
 import LoadingError from '../components/loadingError';
 import LoadingIndicator from '../components/loadingIndicator';
-import {t} from '../locale';
+import EmptyView from '../components/emptyView';
 
 const RuleRow = React.createClass({
   propTypes: {
@@ -171,10 +173,9 @@ const ProjectAlertRules = React.createClass({
 
   renderEmpty() {
     return (
-      <div className="box empty-stream">
-        <span className="icon icon-exclamation" />
-        <p>{t('There are no alerts configured for this project.')}</p>
-      </div>
+      <EmptyView>
+        {`${t('There are no alerts configured for this project')}.`}
+      </EmptyView>
     );
   },
 

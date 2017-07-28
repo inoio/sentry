@@ -6,6 +6,7 @@ import Avatar from '../../components/avatar';
 import TimeSince from '../../components/timeSince';
 import DropdownLink from '../../components/dropdownLink';
 import MenuItem from '../../components/menuItem';
+import EmptyView from '../../components/emptyView';
 import ApiMixin from '../../mixins/apiMixin';
 
 import IconGithub from '../../icons/icon-github';
@@ -39,8 +40,7 @@ const CommitLink = React.createClass({
       ? <a
           className={this.props.inline ? 'inline-commit' : 'btn btn-default btn-sm'}
           href={commitUrl}
-          target="_blank"
-        >
+          target="_blank">
           {this.props.repository.provider.id == 'github' &&
             <IconGithub size="16" style={{verticalAlign: 'text-top'}} />}
           {this.props.repository.provider.id == 'bitbucket' &&
@@ -139,12 +139,11 @@ const ReleaseCommits = React.createClass({
   },
 
   emptyState() {
+    // TODO Should we link to repo settings from here?
     return (
-      <div className="box empty-stream m-y-0">
-        <span className="icon icon-exclamation" />
-        <p>There are no commits associated with this release.</p>
-        {/* Todo: Should we link to repo settings from here?  */}
-      </div>
+      <EmptyView className="m-y-0">
+        {`${t('There are no commits associated with this release')}.`}
+      </EmptyView>
     );
   },
 
@@ -223,16 +222,14 @@ const ReleaseCommits = React.createClass({
                           style={{marginLeft: 3, marginRight: -3}}
                         />
                       </h5>
-                    }
-                  >
+                    }>
                     <MenuItem
                       key="all"
                       noAnchor={true}
                       onClick={() => {
                         this.setActiveRepo(null);
                       }}
-                      isActive={this.state.activeRepo === null}
-                    >
+                      isActive={this.state.activeRepo === null}>
                       <a>All Repositories</a>
                     </MenuItem>
                     {Object.keys(commitsByRepository).map(repository => {
@@ -243,8 +240,7 @@ const ReleaseCommits = React.createClass({
                           onClick={() => {
                             this.setActiveRepo(repository);
                           }}
-                          isActive={this.state.activeRepo === repository}
-                        >
+                          isActive={this.state.activeRepo === repository}>
                           <a>{repository}</a>
                         </MenuItem>
                       );

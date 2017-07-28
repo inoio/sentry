@@ -1,16 +1,18 @@
 import React from 'react';
 import {browserHistory, Link} from 'react-router';
 
+import {t} from '../locale';
+import {deviceNameMapper} from '../utils';
 import ApiMixin from '../mixins/apiMixin';
+import GroupState from '../mixins/groupState';
+
 import DateTime from '../components/dateTime';
 import Avatar from '../components/avatar';
-import GroupState from '../mixins/groupState';
 import LoadingError from '../components/loadingError';
 import LoadingIndicator from '../components/loadingIndicator';
 import Pagination from '../components/pagination';
-import SearchBar from '../components/searchBar.jsx';
-import {t} from '../locale';
-import {deviceNameMapper} from '../utils';
+import SearchBar from '../components/searchBar';
+import EmptyView from '../components/emptyView';
 
 const GroupEvents = React.createClass({
   mixins: [ApiMixin, GroupState],
@@ -115,19 +117,17 @@ const GroupEvents = React.createClass({
 
   renderNoQueryResults() {
     return (
-      <div className="box empty-stream">
-        <span className="icon icon-exclamation" />
-        <p>{t('Sorry, no events match your search query.')}</p>
-      </div>
+      <EmptyView>
+        {`${t('Sorry, no events match your search query')}.`}
+      </EmptyView>
     );
   },
 
   renderEmpty() {
     return (
-      <div className="box empty-stream">
-        <span className="icon icon-exclamation" />
-        <p>{t("There don't seem to be any events yet.")}</p>
-      </div>
+      <EmptyView>
+        {`${t("There don't seem to be any events yet")}.`}
+      </EmptyView>
     );
   },
 

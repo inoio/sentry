@@ -1,14 +1,18 @@
 import jQuery from 'jquery';
 import React from 'react';
 import {Link, browserHistory} from 'react-router';
+
+import {t} from '../../locale';
+
 import ApiMixin from '../../mixins/apiMixin';
+
 import DateTime from '../../components/dateTime';
 import Avatar from '../../components/avatar';
 import LoadingError from '../../components/loadingError';
 import LoadingIndicator from '../../components/loadingIndicator';
 import Pagination from '../../components/pagination';
-import SearchBar from '../../components/searchBar.jsx';
-import {t} from '../../locale';
+import SearchBar from '../../components/searchBar';
+import EmptyView from '../../components/emptyView';
 
 const ProjectEvents = React.createClass({
   propTypes: {
@@ -123,19 +127,17 @@ const ProjectEvents = React.createClass({
 
   renderNoQueryResults() {
     return (
-      <div className="box empty-stream">
-        <span className="icon icon-exclamation" />
-        <p>{t('Sorry, no events match your filters.')}</p>
-      </div>
+      <EmptyView>
+        {`${t('Sorry, no events match your filters')}.`}
+      </EmptyView>
     );
   },
 
   renderEmpty() {
     return (
-      <div className="box empty-stream">
-        <span className="icon icon-exclamation" />
-        <p>{t("There don't seem to be any events.")}</p>
-      </div>
+      <EmptyView>
+        {`${t("There don't seem to be any events")}.`}
+      </EmptyView>
     );
   },
 

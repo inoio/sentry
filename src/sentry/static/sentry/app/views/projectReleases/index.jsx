@@ -6,6 +6,7 @@ import ApiMixin from '../../mixins/apiMixin';
 import LoadingError from '../../components/loadingError';
 import LoadingIndicator from '../../components/loadingIndicator';
 import Pagination from '../../components/pagination';
+import EmptyView from '../../components/emptyView';
 import SearchBar from '../../components/searchBar.jsx';
 import {t} from '../../locale';
 
@@ -142,24 +143,20 @@ const ProjectReleases = React.createClass({
 
   renderNoQueryResults() {
     return (
-      <div className="box empty-stream">
-        <span className="icon icon-exclamation" />
-        <p>{t('Sorry, no releases match your filters.')}</p>
-      </div>
+      <EmptyView>
+        {`${t('Sorry, no releases match your filters')}.`}
+      </EmptyView>
     );
   },
 
   renderEmpty() {
     return (
-      <div className="box empty-stream">
-        <span className="icon icon-exclamation" />
-        <p>{t("There don't seem to be any releases yet.")}</p>
-        <p>
-          <a href={this.getReleaseTrackingUrl()}>
-            {t('Learn how to integrate Release Tracking')}
-          </a>
-        </p>
-      </div>
+      <EmptyView>
+        {`${t("There don't seem to be any releases yet")}.`}
+        <a href={this.getReleaseTrackingUrl()}>
+          {t('Learn how to integrate Release Tracking')}
+        </a>
+      </EmptyView>
     );
   },
 

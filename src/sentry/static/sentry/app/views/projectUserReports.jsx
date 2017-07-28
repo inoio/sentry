@@ -7,6 +7,7 @@ import GroupStore from '../stores/groupStore';
 import LoadingError from '../components/loadingError';
 import LoadingIndicator from '../components/loadingIndicator';
 import Pagination from '../components/pagination';
+import EmptyView from '../components/emptyView';
 import CompactIssue from '../components/compactIssue';
 import TimeSince from '../components/timeSince';
 import utils from '../utils';
@@ -146,24 +147,20 @@ const ProjectUserReports = React.createClass({
 
   renderNoQueryResults() {
     return (
-      <div className="box empty-stream">
-        <span className="icon icon-exclamation" />
-        <p>{t('Sorry, no results match your search query.')}</p>
-      </div>
+      <EmptyView>
+        {`${t('Sorry, no results match your search query')}.`}
+      </EmptyView>
     );
   },
 
   renderEmpty() {
     return (
-      <div className="box empty-stream">
-        <span className="icon icon-exclamation" />
-        <p>{t('No user reports have been collected for this project.')}</p>
-        <p>
-          <Link to={this.getUserReportsUrl()}>
-            {t('Learn how to integrate User Feedback')}
-          </Link>
-        </p>
-      </div>
+      <EmptyView>
+        {`${t('No user reports have been collected for this project')}.`}
+        <Link to={this.getUserReportsUrl()}>
+          {t('Learn how to integrate User Feedback')}
+        </Link>
+      </EmptyView>
     );
   },
 

@@ -4,6 +4,7 @@ import {t} from '../../locale';
 import {Group} from '../../proptypes';
 
 import Pagination from '../../components/pagination';
+import EmptyView from '../../components/emptyView';
 
 import SimilarToolbar from './similarToolbar';
 import SimilarItem from './similarItem';
@@ -31,25 +32,15 @@ const SimilarList = React.createClass({
     };
   },
 
-  renderEmpty() {
-    return (
-      <div className="box empty-stream">
-        <span className="icon icon-exclamation" />
-        <p>
-          {t('There are no similar issues.')}
-        </p>
-      </div>
-    );
-  },
-
   render() {
     let {orgId, projectId, items, filteredItems, pageLinks, onMerge} = this.props;
     let hasHiddenItems = !!filteredItems.length;
     let hasResults = items.length > 0 || hasHiddenItems;
+    let cx = 'grouping-list-container grouping-similar-list-container';
 
     if (hasResults) {
       return (
-        <div className="grouping-list-container grouping-similar-list-container">
+        <div className={cx}>
           <h2>{t('Similar Issues')}</h2>
           <SimilarToolbar onMerge={onMerge} />
 
@@ -87,7 +78,13 @@ const SimilarList = React.createClass({
       );
     }
 
-    return this.renderEmpty();
+    return (
+      <div className={cx}>
+        <EmptyView>
+          {t('There are no similar issues.')}
+        </EmptyView>
+      </div>
+    );
   }
 });
 

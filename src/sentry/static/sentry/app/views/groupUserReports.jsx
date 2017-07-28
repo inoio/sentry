@@ -1,14 +1,17 @@
 import $ from 'jquery';
 import React from 'react';
 import {Link} from 'react-router';
+
+import utils from '../utils';
+import {t} from '../locale';
 import ApiMixin from '../mixins/apiMixin';
-import Avatar from '../components/avatar';
 import GroupState from '../mixins/groupState';
+
+import Avatar from '../components/avatar';
 import LoadingError from '../components/loadingError';
 import LoadingIndicator from '../components/loadingIndicator';
 import TimeSince from '../components/timeSince';
-import utils from '../utils';
-import {t} from '../locale';
+import EmptyView from '../components/emptyView';
 
 const GroupUserReports = React.createClass({
   mixins: [ApiMixin, GroupState],
@@ -101,15 +104,12 @@ const GroupUserReports = React.createClass({
       );
     }
     return (
-      <div className="box empty-stream">
-        <span className="icon icon-exclamation" />
-        <p>{t('No user reports have been collected for this event.')}</p>
-        <p>
-          <Link to={this.getUserReportsUrl()}>
-            {t('Learn how to integrate User Feedback')}
-          </Link>
-        </p>
-      </div>
+      <EmptyView>
+        {`${t('No user reports have been collected for this event')}.`}
+        <Link to={this.getUserReportsUrl()}>
+          {t('Learn how to integrate User Feedback')}
+        </Link>
+      </EmptyView>
     );
   }
 });

@@ -2,15 +2,17 @@ import React from 'react';
 import Reflux from 'reflux';
 import jQuery from 'jquery';
 
-import ApiMixin from '../mixins/apiMixin';
-import GroupListHeader from '../components/groupListHeader';
-import GroupStore from '../stores/groupStore';
-import LoadingError from '../components/loadingError';
-import LoadingIndicator from '../components/loadingIndicator';
-import ProjectState from '../mixins/projectState';
-import StreamGroup from '../components/stream/group';
 import utils from '../utils';
 import {t} from '../locale';
+import ApiMixin from '../mixins/apiMixin';
+import ProjectState from '../mixins/projectState';
+import GroupStore from '../stores/groupStore';
+
+import GroupListHeader from '../components/groupListHeader';
+import LoadingError from '../components/loadingError';
+import LoadingIndicator from '../components/loadingIndicator';
+import EmptyView from '../components/emptyView';
+import StreamGroup from '../components/stream/group';
 
 const GroupList = React.createClass({
   propTypes: {
@@ -116,10 +118,9 @@ const GroupList = React.createClass({
     else if (this.state.error) return <LoadingError onRetry={this.fetchData} />;
     else if (this.state.groupIds.length === 0)
       return (
-        <div className="box empty-stream">
-          <span className="icon icon-exclamation" />
-          <p>{t("There doesn't seem to be any events fitting the query.")}</p>
-        </div>
+        <EmptyView>
+          {`${t("There doesn't seem to be any events fitting the query")}.`}
+        </EmptyView>
       );
 
     let wrapperClass;

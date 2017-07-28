@@ -1,13 +1,16 @@
 import React from 'react';
+import Modal from 'react-bootstrap/lib/Modal';
+
+import {t} from '../locale';
 
 import ApiMixin from '../mixins/apiMixin';
+
 import LoadingError from '../components/loadingError';
 import LoadingIndicator from '../components/loadingIndicator';
 import DateTime from '../components/dateTime';
 import FileSize from '../components/fileSize';
 import TimeSince from '../components/timeSince';
-import Modal from 'react-bootstrap/lib/Modal';
-import {t} from '../locale';
+import EmptyView from '../components/emptyView';
 
 const ProjectDebugSymbols = React.createClass({
   mixins: [ApiMixin],
@@ -102,10 +105,9 @@ const ProjectDebugSymbols = React.createClass({
 
   renderEmpty() {
     return (
-      <div className="box empty-stream">
-        <span className="icon icon-exclamation" />
-        <p>{t('There are no debug symbols for this project.')}</p>
-      </div>
+      <EmptyView>
+        {`${t('There are no debug symbols for this project')}.`}
+      </EmptyView>
     );
   },
 
@@ -293,11 +295,16 @@ const ProjectDebugSymbols = React.createClass({
       return (
         <tr key={key}>
           <td><code className="small">{dsym.uuid}</code></td>
-          <td>{
-            dsym.symbolType === 'proguard' && dsym.objectName === 'proguard-mapping'
-            ? '-' : dsym.objectName}</td>
-          <td>{dsym.symbolType === 'proguard' && dsym.cpuName === 'any'
-            ? 'proguard' : `${dsym.cpuName} (${dsym.symbolType})`}</td>
+          <td>
+            {dsym.symbolType === 'proguard' && dsym.objectName === 'proguard-mapping'
+              ? '-'
+              : dsym.objectName}
+          </td>
+          <td>
+            {dsym.symbolType === 'proguard' && dsym.cpuName === 'any'
+              ? 'proguard'
+              : `${dsym.cpuName} (${dsym.symbolType})`}
+          </td>
           <td><DateTime date={dsym.dateCreated} /></td>
           <td><FileSize bytes={dsym.size} /></td>
         </tr>
@@ -348,13 +355,17 @@ const ProjectDebugSymbols = React.createClass({
     return (
       <div>
         <h1>{t('Debug Information Files')}</h1>
-        <p>{t(`
+        <p>
+          {t(
+            `
           Here you can find uploaded debug information (for instance debug
           symbol files or proguard mappings).  This is used to convert
           addresses and minified function names from crash dumps
           into function names and locations.  For JavaScript debug support
           look at releases instead.
-        `)}</p>
+        `
+          )}
+        </p>
         {this.renderDebugTable()}
         {this.renderUnreferencedDebugSymbols()}
         <Modal

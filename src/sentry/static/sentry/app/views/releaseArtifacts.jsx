@@ -8,6 +8,7 @@ import LoadingError from '../components/loadingError';
 import LoadingIndicator from '../components/loadingIndicator';
 import IndicatorStore from '../stores/indicatorStore';
 import Pagination from '../components/pagination';
+import EmptyView from '../components/emptyView';
 import LinkWithConfirmation from '../components/linkWithConfirmation';
 
 import {t} from '../locale';
@@ -111,10 +112,9 @@ const ReleaseArtifacts = React.createClass({
     else if (this.state.error) return <LoadingError onRetry={this.fetchData} />;
     else if (this.state.fileList.length === 0)
       return (
-        <div className="box empty-stream">
-          <span className="icon icon-exclamation" />
-          <p>{t('There are no artifacts uploaded for this release.')}</p>
-        </div>
+        <EmptyView>
+          {t('There are no artifacts uploaded for this release.')}
+        </EmptyView>
       );
 
     let access = this.getAccess();

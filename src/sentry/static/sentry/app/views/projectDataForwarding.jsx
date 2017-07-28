@@ -1,13 +1,15 @@
 import React from 'react';
 
+import {t} from '../locale';
 import ApiMixin from '../mixins/apiMixin';
+import ProjectState from '../mixins/projectState';
 import HookStore from '../stores/hookStore';
+
 import LoadingError from '../components/loadingError';
 import LoadingIndicator from '../components/loadingIndicator';
 import PluginList from '../components/pluginList';
-import ProjectState from '../mixins/projectState';
 import StackedBarChart from '../components/stackedBarChart';
-import {t} from '../locale';
+import EmptyView from '../components/emptyView';
 
 const DataForwardingStats = React.createClass({
   mixins: [ApiMixin],
@@ -187,10 +189,9 @@ export default React.createClass({
 
   renderEmpty() {
     return (
-      <div className="box empty-stream">
-        <span className="icon icon-exclamation" />
-        <p>{t('There are no integrations available for data forwarding.')}</p>
-      </div>
+      <EmptyView>
+        {`${t('There are no integrations available for data forwarding')}.`}
+      </EmptyView>
     );
   },
 

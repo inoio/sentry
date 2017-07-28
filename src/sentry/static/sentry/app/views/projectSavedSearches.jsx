@@ -4,6 +4,7 @@ import ApiMixin from '../mixins/apiMixin';
 import IndicatorStore from '../stores/indicatorStore';
 import LoadingError from '../components/loadingError';
 import LoadingIndicator from '../components/loadingIndicator';
+import EmptyView from '../components/emptyView';
 import {t} from '../locale';
 import OrganizationState from '../mixins/organizationState';
 
@@ -215,10 +216,9 @@ const ProjectSavedSearches = React.createClass({
 
   renderEmpty() {
     return (
-      <div className="box empty-stream">
-        <span className="icon icon-exclamation" />
-        <p>{t('There are no saved searches for this project.')}</p>
-      </div>
+      <EmptyView>
+        {`${t('There are no saved searches for this project')}.`}
+      </EmptyView>
     );
   },
 

@@ -2,15 +2,17 @@ import React from 'react';
 import DocumentTitle from 'react-document-title';
 import {Link} from 'react-router';
 
+import {t, tct} from '../locale';
 import ApiMixin from '../mixins/apiMixin';
+import OrganizationState from '../mixins/organizationState';
+import IndicatorStore from '../stores/indicatorStore';
+
 import AutoSelectText from '../components/autoSelectText';
 import ClippedBox from '../components/clippedBox';
-import IndicatorStore from '../stores/indicatorStore';
 import LoadingError from '../components/loadingError';
 import LoadingIndicator from '../components/loadingIndicator';
-import {t, tct} from '../locale';
-import OrganizationState from '../mixins/organizationState';
 import Pagination from '../components/pagination';
+import EmptyView from '../components/emptyView';
 
 const KeyRow = React.createClass({
   propTypes: {
@@ -278,10 +280,9 @@ export default React.createClass({
 
   renderEmpty() {
     return (
-      <div className="box empty-stream">
-        <span className="icon icon-exclamation" />
-        <p>{t('There are no keys active for this project.')}</p>
-      </div>
+      <EmptyView>
+        {`${t('There are no keys active for this project')}.`}
+      </EmptyView>
     );
   },
 

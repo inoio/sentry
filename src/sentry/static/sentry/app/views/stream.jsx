@@ -13,6 +13,7 @@ import LoadingError from '../components/loadingError';
 import LoadingIndicator from '../components/loadingIndicator';
 import ProjectState from '../mixins/projectState';
 import Pagination from '../components/pagination';
+import EmptyView from '../components/emptyView';
 import StreamGroup from '../components/stream/group';
 import StreamActions from './stream/actions';
 import StreamTagActions from '../actions/streamTagActions';
@@ -661,10 +662,9 @@ const Stream = React.createClass({
   },
   renderEmpty() {
     return (
-      <div className="box empty-stream">
-        <span className="icon icon-exclamation" />
-        <p>{t('Sorry, no events match your filters.')}</p>
-      </div>
+      <EmptyView>
+        {t('Sorry, no events match your filters.')}
+      </EmptyView>
     );
   },
   renderLoading() {

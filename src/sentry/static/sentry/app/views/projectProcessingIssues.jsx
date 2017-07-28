@@ -1,14 +1,17 @@
 import React from 'react';
 
+import {t, tn} from '../locale';
+
 import ApiMixin from '../mixins/apiMixin';
 import OrganizationState from '../mixins/organizationState';
+import IndicatorStore from '../stores/indicatorStore';
+
 import TimeSince from '../components/timeSince';
 import LoadingError from '../components/loadingError';
 import LoadingIndicator from '../components/loadingIndicator';
-import IndicatorStore from '../stores/indicatorStore';
 import {FormState} from '../components/forms';
 import Switch from '../components/switch';
-import {t, tn} from '../locale';
+import EmptyView from '../components/emptyView';
 
 const MESSAGES = {
   native_no_crashed_thread: t('No crashed thread found in crash report'),
@@ -22,7 +25,7 @@ const MESSAGES = {
   native_simulator_frame: t('Encountered an unprocessable simulator frame.'),
   native_unknown_image: t('An binary image is referenced that is unknown.'),
   proguard_missing_mapping: t('A proguard mapping file was missing.'),
-  proguard_missing_lineno: t('A proguard mapping file does not contain line info.'),
+  proguard_missing_lineno: t('A proguard mapping file does not contain line info.')
 };
 
 const HELP_LINKS = {
@@ -179,10 +182,9 @@ const ProjectProcessingIssues = React.createClass({
 
   renderEmpty() {
     return (
-      <div className="box empty-stream">
-        <span className="icon icon-exclamation" />
-        <p>{t('Good news! There are no processing issues.')}</p>
-      </div>
+      <EmptyView>
+        {`${t('Good news! There are no processing issues')}.`}
+      </EmptyView>
     );
   },
 

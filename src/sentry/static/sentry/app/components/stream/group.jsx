@@ -158,8 +158,7 @@ const StreamGroup = React.createClass({
           <StreamGroupHeader orgId={orgId} projectId={projectId} data={data} />
           <div className="event-extra">
             <ul>
-              {this.getFeatures().has('callsigns') &&
-                data.shortId &&
+              {data.shortId &&
                 <li>
                   <ShortId shortId={data.shortId} />
                 </li>}
